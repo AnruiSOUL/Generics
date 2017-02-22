@@ -39,11 +39,20 @@ public class MyArrayList<T> {
     }
 
     public void add(T value, int index ) throws IndexOutOfBoundsException{
-            array[index] = value;
+        T[] subArray = (T[]) new Object[array.length-index];
+        for (int i = 0; i < subArray.length; i++) {
+            subArray[i] = array[index+i];
+        }
+        array[index] = value;
+        for (int i = 0; i < subArray.length-1; i++){
+            array[index+1+0] = subArray[i];
+        }
+        add(subArray[subArray.length-1]);
+
     }
 
     public void clear(){
-
+        array = (T[]) new Object[array.length];
     }
 
     public T get(int index){
@@ -51,17 +60,40 @@ public class MyArrayList<T> {
     }
 
     public int indexOf(T value){
-        return 0;
+        int index = -1, counter = 0;
+        for (T t: this.array) {
+            if (t.equals(value)) {
+                index = counter;
+                break;
+            }
+            counter++;
+        }
+        return index;
     }
 
-    public T remove(int index){
+    public void remove(int index){
 
-        return null;
+        array[index] = null;
     }
 
-    public T set(int index, T value){
-        return null;
+    public void set(int index, T value) throws IndexOutOfBoundsException{
+        array[index] = value;
     }
 
+    public boolean contains(T value){
+        for (T item: array) {
+            if (item.equals(value))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean isEmpty(){
+        for(T item: array){
+            if (item != null)
+                return false;
+        }
+        return true;
+    }
 
 }

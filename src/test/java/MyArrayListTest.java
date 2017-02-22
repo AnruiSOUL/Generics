@@ -6,13 +6,19 @@ import static org.junit.Assert.*;
  * Created by randallcrame on 2/22/17.
  */
 public class MyArrayListTest {
-    MyArrayList<String> testList, testList2, testList3;
+    MyArrayList<String> testList, testList2, testList3, testList4;
     @Before
     public void setUp(){
-        testList = new MyArrayList();
-        testList2 = new MyArrayList(20);
-        testList3 = new MyArrayList(1);
+        testList = new MyArrayList<>();
+        testList2 = new MyArrayList<>(20);
+        testList3 = new MyArrayList<>(1);
         testList3.add("King");
+        testList4 = new MyArrayList<>(5);
+        testList4.add("Ace");
+        testList4.add("King");
+        testList4.add("Queen");
+        testList4.add("Jack");
+        testList4.add("Ten");
     }
 
     @Test
@@ -51,9 +57,91 @@ public class MyArrayListTest {
         String actual = testList3.get(0);
         assertEquals("Expected Queen to return", expected, actual);
     }
+    @Test
+    public void addIndexSize(){
+        testList3.add("Queen", 0);
+        int expected = 2;
+        int actual = testList3.size();
+        assertEquals("Array size increased to 2", expected, actual);
+    }
 
+    @Test
+    public void addIndexKingTest(){
+        testList3.add("Queen", 0);
+        String expected = "King";
+        String actual = testList3.get(1);
+        assertEquals("Expected King to return", expected, actual);
+    }
     @Test(expected = IndexOutOfBoundsException.class)
     public  void addExceptionTest(){
         testList3.add("Queen", -3);
+    }
+
+    @Test
+    public void indexOfTest() {
+        int expected = 2;
+        int actual = testList4.indexOf("Queen");
+        assertEquals("Expected a return of index 2", expected, actual);
+    }
+
+    @Test
+    public void indexOfNegativeTest(){
+        int expected = -1;
+        int actual = testList4.indexOf("Five");
+        assertEquals("Expected a return of -1, not found", expected, actual);
+    }
+
+    @Test
+    public void removeTest(){
+        testList3.remove(0);
+        assertNull(testList3.get(0));
+    }
+
+
+    @Test
+    public void clearTest(){
+        testList3.clear();
+        assertNull(testList3.get(0));
+    }
+
+    @Test
+    public void clearSizeTest(){
+        testList3.clear();
+        int expected = 1;
+        int actual = testList3.size();
+        assertEquals("Expected return of 1", expected, actual   );
+    }
+
+    @Test
+    public void setTest(){
+        testList.set(5, "Ace");
+        String expected = "Ace";
+        String actual = testList.get(5);
+        assertEquals("Expected return of 'Ace'", expected, actual);
+    }
+
+    @Test
+    public void containsTrueTest(){
+        boolean actual = testList4.contains("Queen");
+        assertTrue("Return true", actual);
+    }
+
+
+    @Test
+    public void containsFalseTest(){
+        boolean actual = testList3.contains("Queen");
+        assertFalse("Return false", actual);
+    }
+
+    @Test
+    public void isEmptyTrueTest(){
+        boolean actual = testList.isEmpty();
+        assertTrue("Return true", actual);
+    }
+
+    @Test
+    public void isEmptyFalseTest(){
+        boolean actual = testList3.isEmpty();
+        assertFalse("Return false", actual);
     }
 }
