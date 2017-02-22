@@ -2,55 +2,64 @@
  * Created by randallcrame on 2/22/17.
  */
 public class MyArrayList<T> {
-//    +add(E): boolean
-//+add(int, E): void
-//+clear(): void
-//+get(int)abstract E
-//+ indexOf(Object): int
-//    remove(int): E
-//    set(int, E): E
 
-    Object[] array;
+    private T[] array;
 
     MyArrayList(){
-    array = new Object[10];
+    array = (T[]) new Object[10];
     }
 
     MyArrayList(int size){
-    array = new Object[size];
+    array = (T[]) new Object[size];
     }
 
     public int size(){
-        return 0;
+        return array.length;
     }
 
-
-    public boolean add(){
-        return false;
+    private boolean isArrayFull(){
+        return (this.array[array.length-1]!= null);
+    }
+    private T[] doubleSize(){
+        T[] newArray = (T[])  new Object[array.length*2];
+        for (int i = 0; i < array.length; i++){
+            newArray[i] = array[i];
+        }
+        return newArray;
+    }
+    public void add(T value){
+        if (isArrayFull())
+            array = doubleSize();
+        for (int i = 0; i < array.length; i++){
+            if (array[i] == null){
+                array[i] = value;
+                break;
+            }
+        }
     }
 
-    public void add(T element, int index ){
-
+    public void add(T value, int index ) throws IndexOutOfBoundsException{
+            array[index] = value;
     }
 
     public void clear(){
 
     }
 
-    public <T> T get(int index){
-        return null;
+    public T get(int index){
+        return array[index];
     }
 
-    public int indexOf(T){
+    public int indexOf(T value){
         return 0;
     }
 
-    public <T> T remove(int){
+    public T remove(int index){
 
         return null;
     }
 
-    public <T> T set(int index, T value){
+    public T set(int index, T value){
         return null;
     }
 
