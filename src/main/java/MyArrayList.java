@@ -27,6 +27,7 @@ public class MyArrayList<T> {
         }
         return newArray;
     }
+
     public void add(T value){
         if (isArrayFull())
             array = doubleSize();
